@@ -8,6 +8,11 @@ from tests.test_state_machine import test_task_lifecycle_and_claim_lock
 from tests.test_arbiter_engine import test_unanimous_approval, test_rejection_by_blocking_issues
 from tests.test_proof_of_execution import test_proof_validator_manifest
 from tests.test_fleet_sync import test_fleet_sync_drift_detection
+from tests.test_hierarchical_tree import (
+    test_pipeline_yaml_l4_topology,
+    test_hierarchical_skill_frontmatter_and_sections,
+    test_hierarchical_rollup_execution_simulation,
+)
 
 class MultiAgentArchitectSuite(unittest.TestCase):
     def test_01_state_machine(self):
@@ -24,6 +29,11 @@ class MultiAgentArchitectSuite(unittest.TestCase):
 
     def test_05_fleet_sync(self):
         test_fleet_sync_drift_detection()
+
+    def test_06_hierarchical_tree(self):
+        test_pipeline_yaml_l4_topology()
+        test_hierarchical_skill_frontmatter_and_sections()
+        test_hierarchical_rollup_execution_simulation()
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(MultiAgentArchitectSuite)
