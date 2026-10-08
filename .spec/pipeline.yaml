@@ -1,0 +1,97 @@
+version: "1.0.0"
+description: "Multi-Agent Architecture & Distributed SDD Execution Pipeline Definitions"
+
+topologies:
+  L1:
+    description: "Lightweight single-pass execution (small scripts, local parsing, minor utilities)"
+    stages:
+      - id: "plan"
+        agent: "architect"
+        output: "tasks/pending/"
+      - id: "code"
+        agent: "worker"
+        auto_claim: true
+      - id: "verify"
+        agent: "test_runner"
+        condition: "unit_test_passed"
+        exit_action: "archive_to_done"
+
+  L2:
+    description: "Standard system module (APIs, business services, database refactors)"
+    stages:
+      - id: "spec_definition"
+        agent: "architect"
+        output: ".spec/SPEC.md"
+      - id: "task_decomposition"
+        agent: "architect"
+        output: "tasks/pending/"
+      - id: "parallel_code"
+        agent: "worker_pool"
+        auto_claim: true
+        lock_type: "file_rename"
+      - id: "peer_review"
+        agent: "single_reviewer"
+        output: "reviews/peer_review.json"
+      - id: "integration_test"
+        agent: "test_runner"
+        condition: "all_tests_passed"
+        exit_action: "archive_to_done"
+
+  L3:
+    description: "High-risk, distributed crawler, financial, multi-server account farm or zero-fault core systems"
+    stages:
+      - id: "spec_definition"
+        agent: "architect"
+        output: ".spec/SPEC.md"
+      - id: "tri_review_gate"
+        description: "3-Reviewer parallel audit before coding"
+        reviewers:
+          - id: "sec_guard"
+            name: "Security & Risk Auditor"
+            focus: ["injection", "credential_leak", "waf_ban", "rate_limits", "privilege_escalation"]
+            output: "reviews/sec_report.json"
+          - id: "perf_guru"
+            name: "Concurrency & Performance Auditor"
+            focus: ["n_plus_one", "deadlock", "memory_leak", "connection_pool_starvation", "race_conditions"]
+            output: "reviews/perf_report.json"
+          - id: "inv_checker"
+            name: "Business Invariant & State Auditor"
+            focus: ["conservation_laws", "state_machine_completeness", "unhandled_errors", "data_freshness"]
+            output: "reviews/inv_report.json"
+      - id: "arbitration"
+        agent: "arbiter"
+        description: "Arbiter resolves conflicts and issues authoritative verdict"
+        input:
+          - "reviews/sec_report.json"
+          - "reviews/perf_report.json"
+          - "reviews/inv_report.json"
+        decision_file: "reviews/ARBITER_DECISION.json"
+        verdict_rules:
+          auto_approve_if: "all_reviewers_pass"
+          require_arbiter_override_if: "conflicts_detected"
+        on_approved:
+          spawn_next_stage: "distributed_execution"
+        on_rejected:
+          spawn_next_stage: "defect_remediation"
+      - id: "distributed_execution"
+        agent: "fleet_workers"
+        description: "Multi-server execution with strict Proof-of-Execution verification"
+        proof_of_execution:
+          mandatory_requirements:
+            - "unpredictable_external_headers" # e.g. cf-ray, date, etag
+            - "raw_payload_sha256"             # gzip raw HTML/JSON with SHA-256
+            - "os_kernel_telemetry"            # PID, socket state from /proc/<PID>/net/tcp
+            - "visual_dom_snapshot"            # High-res PNG with exact element bounding box
+      - id: "final_audit"
+        agent: "audit_guard"
+        condition: "proof_of_execution_verified and unit_tests_passed"
+        exit_action: "archive_to_done"
+
+state_machine:
+  dirs:
+    pending: "tasks/pending"
+    running: "tasks/running"
+    done: "tasks/done"
+    blocked: "tasks/blocked"
+  lock_timeout_seconds: 3600
+  claim_format: "{worker_id}-{task_id}.md"

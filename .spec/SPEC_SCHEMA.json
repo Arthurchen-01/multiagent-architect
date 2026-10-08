@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDDSpecificationSchema",
+  "description": "Schema for Spec-Driven Development (SDD) Specification Manifests",
+  "type": "object",
+  "required": ["spec_id", "title", "version", "complexity_level", "intent", "contracts", "invariants", "acceptance_criteria"],
+  "properties": {
+    "spec_id": {
+      "type": "string",
+      "description": "Unique identifier for this specification (e.g. SPEC-AUTH-001)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short human-readable title"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "complexity_level": {
+      "type": "string",
+      "enum": ["L1", "L2", "L3"],
+      "description": "L1: Simple script/task, L2: Standard service module, L3: High-risk/distributed/crawler/financial"
+    },
+    "intent": {
+      "type": "object",
+      "required": ["business_goal", "problem_statement", "out_of_scope"],
+      "properties": {
+        "business_goal": { "type": "string" },
+        "problem_statement": { "type": "string" },
+        "out_of_scope": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "contracts": {
+      "type": "object",
+      "required": ["interfaces", "data_models"],
+      "properties": {
+        "interfaces": { "type": "array", "items": { "type": "object" } },
+        "data_models": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "description": "Rigid mathematical, architectural or business invariants that must NEVER be violated",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "statement", "assertion_expression"],
+        "properties": {
+          "rule_id": { "type": "string" },
+          "statement": { "type": "string" },
+          "assertion_expression": { "type": "string" }
+        }
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["criterion_id", "given", "when", "then"],
+        "properties": {
+          "criterion_id": { "type": "string" },
+          "given": { "type": "string" },
+          "when": { "type": "string" },
+          "then": { "type": "string" }
+        }
+      }
+    }
+  }
+}

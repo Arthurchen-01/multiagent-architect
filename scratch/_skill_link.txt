@@ -1,0 +1,1 @@
+﻿JUNCTION_OK=True target=D:\multiagent-architect\skills\product-gate-guard

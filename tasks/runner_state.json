@@ -1,0 +1,54 @@
+{
+  "task_name": "autonomous_deploy_1106_worker",
+  "status": "COMPLETED",
+  "current_step_index": 3,
+  "total_steps": 4,
+  "steps": [
+    {
+      "index": 0,
+      "name": "step_probe_node",
+      "description": "SSH 远程实测五四云-1106 硬件、负载与端口",
+      "status": "SUCCESS",
+      "retries": 0,
+      "output": "ser403647981987\n 09:18:15 up 21:54,  0 users,  load average: 0.04, 0.01, 0.00\n               total        used        free      shared  buff/cache   available\nMem:           16000        1063       11027           1        3909       14597\nSwap:              0           0           0\nFilesystem      Size  Used Avail Use% Mounted on\n/dev/vda1        29G  4.2G   25G  15% /",
+      "error": null,
+      "started_at": 1791364690.3332522,
+      "completed_at": 1791364692.39319
+    },
+    {
+      "index": 1,
+      "name": "step_verify_gateway_bridge",
+      "description": "实测五四云-1106 到 五四云-1023 AI 网关高速连通性",
+      "status": "SUCCESS",
+      "retries": 0,
+      "output": "{\"healthy\":91,\"realm_servable\":{\"cn\":true,\"global\":true},\"service\":\"workbuddy2api\",\"total\":270}",
+      "error": null,
+      "started_at": 1791364692.3943388,
+      "completed_at": 1791364695.2347434
+    },
+    {
+      "index": 2,
+      "name": "step_deploy_worker",
+      "description": "下发并部署具备哨兵停机 (Sentinel Stop) 的常驻 Worker",
+      "status": "SUCCESS",
+      "retries": 0,
+      "output": "[WORKER] Started on 五四云-1106. Sentinel stop file: /opt/linying/STOP_WORKER\n[WORKER] Self-check OK. Heartbeat: {'status': 'IDLE', 'uptime': 1791364703.8787045, 'worker': 'w-1106'}",
+      "error": null,
+      "started_at": 1791364695.2422638,
+      "completed_at": 1791364700.8466327
+    },
+    {
+      "index": 3,
+      "name": "step_verify_and_snapshot",
+      "description": "端到端冒烟验证与真实进程快照留痕",
+      "status": "SUCCESS",
+      "retries": 0,
+      "output": "-rw-r--r-- 1 root root 455 Oct  7 09:18 /opt/linying/worker_agent.py\nroot           6  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/0:0H-events_highpri]\nroot          22  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/1:0H-events_highpri]\nroot          28  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/2:0H-events_highpri]\nroot          34  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/3:0H-events_highpri]\nroot          40  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/4:0H-events_highpri]\nroot          46  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/5:0H-events_highpri]\nroot          52  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/6:0H-events_highpri]\nroot          58  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/7:0H-events_highpri]\nroot          64  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/8:0H-events_highpri]\nroot          70  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/9:0H-events_highpri]\nroot          76  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/10:0H-kblockd]\nroot          82  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/11:0H-kblockd]\nroot          88  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/12:0H-events_highpri]\nroot          94  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/13:0H-events_highpri]\nroot         100  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/14:0H-events_highpri]\nroot         106  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/15:0H-events_highpri]\nroot         174  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/0:1H-kblockd]\nroot         217  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/u33:0]\nroot         244  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/12:1H-kblockd]\nroot         261  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/9:1H-kblockd]\nroot         272  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/2:1H-kblockd]\nroot         283  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/10:1H-kblockd]\nroot         292  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/1:1H-kblockd]\nroot         298  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/15:1H-kblockd]\nroot         301  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/6:1H-kblockd]\nroot         302  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/4:1H-kblockd]\nroot         304  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/7:1H-kblockd]\nroot         309  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/8:1H-kblockd]\nroot         312  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/14:1H-kblockd]\nroot         338  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/13:1H-kblockd]\nroot         344  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/5:1H-kblockd]\nroot         356  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/3:1H-kblockd]\nroot         497  0.0  0.0      0     0 ?        I<   Oct06   0:00 [kworker/11:1H-kblockd]\nroot         922  0.0  0.0      0     0 ?        I    Oct06   0:00 [kworker/15:2]\nroot        9467  0.0  0.0      0     0 ?        I    Oct06   0:02 [kworker/1:1-events]\nroot       18165  0.0  0.0      0     0 ?        I    Oct06   0:00 [kworker/2:3-cgwb_release]\nroot       41925  0.0  0.0      0     0 ?        I    Oct06   0:00 [kworker/10:2-events]\nroot       50374  0.0  0.0      0     0 ?        I    Oct06   0:00 [kworker/4:0-events]\nroot       54458  0.0  0.0      0     0 ?        I    Oct06   0:00 [kworker/7:0-cgroup_destroy]\nroot       76191  0.0  0.0      0     0 ?        I    Oct06   0:01 [kworker/5:2-events]\nroot       92931 15.3  4.9 7307984 815956 ?      Ssl  01:01  76:04 /opt/linying/.venv/bin/python server.py\nroot       98346  0.0  0.0      0     0 ?        I    01:20   0:00 [kworker/12:0-events]\nroot      107496  0.0  0.0      0     0 ?        I    02:10   0:00 [kworker/12:2]\nroot      109730  0.0  0.0      0     0 ?        I    02:33   0:00 [kworker/7:2-events]\nroot      109802  0.0  0.0      0     0 ?        I    02:33   0:00 [kworker/14:1-mm_percpu_wq]\nroot      110673  0.0  0.0      0     0 ?        I    03:01   0:00 [kworker/0:2-events]\nroot      110827  0.0  0.0      0     0 ?        I    03:03   0:00 [kworker/13:1-events]\nroot      117258  0.0  0.0      0     0 ?        I    06:30   0:00 [kworker/9:2-cgroup_destroy]\nroot      117260  0.0  0.0      0     0 ?        I    06:30   0:00 [kworker/14:0-events]\nroot      117326  0.0  0.0      0     0 ?        I    06:30   0:00 [kworker/3:0-events]\nroot      117966  0.0  0.0      0     0 ?        I    06:30   0:00 [kworker/10:0-cgroup_destroy]\nroot      120552  0.0  0.0      0     0 ?        I    06:32   0:00 [kworker/15:1-mm_percpu_wq]\nroot      148125  0.0  0.0      0     0 ?        I    06:41   0:00 [kworker/1:2]\nroot      177146  0.0  0.0      0     0 ?        I    06:47   0:00 [kworker/6:2-events]\nroot      177161  0.0  0.0      0     0 ?        I    06:47   0:00 [kworker/2:1-events]\nroot      177162  0.0  0.0      0     0 ?        I    06:47   0:00 [kworker/0:0-events]\nroot      177605  0.0  0.0      0     0 ?        I    06:47   0:00 [kworker/3:2-events]\nroot      177800  0.0  0.0      0     0 ?        I    06:47   0:00 [kworker/13:2-cgroup_destroy]\nroot      194325  0.0  0.0      0     0 ?        I    06:54   0:00 [kworker/11:0-events]\nroot      201066  0.0  0.0      0     0 ?        I    06:55   0:00 [kworker/4:1]\nroot      204938  0.0  0.0      0     0 ?        I    06:58   0:00 [kworker/6:1]\nroot      207136  0.0  0.0      0     0 ?        I    07:06   0:00 [kworker/9:0-mm_percpu_wq]\nroot      207301  0.0  0.0      0     0 ?        I    07:07   0:00 [kworker/11:1-cgroup_destroy]\nroot      207425  0.0  0.0      0     0 ?        I    07:09   0:00 [kworker/8:0-mm_percpu_wq]\nroot      207533  0.0  0.0      0     0 ?        I    07:09   0:00 [kworker/5:1]\nroot      207795  0.0  0.0      0     0 ?        I    07:20   0:00 [kworker/8:2-events]\nroot      208873  0.0  0.0      0     0 ?        I    08:17   0:00 [kworker/u32:4-flush-252:0]\nroot      209278  0.0  0.0      0     0 ?        I    08:57   0:00 [kworker/u32:0-flush-252:0]\nroot      209546  0.0  0.0      0     0 ?        I    09:07   0:00 [kworker/u32:1-events_power_efficient]\nroot      209800  0.0  0.0      0     0 ?        I    09:16   0:00 [kworker/u32:2-events_power_efficient]\nroot      209928  0.0  0.0      0     0 ?        I    09:18   0:00 [kworker/11:2-cgroup_destroy]",
+      "error": null,
+      "started_at": 1791364700.8491445,
+      "completed_at": 1791364703.703068
+    }
+  ],
+  "started_at": 1791364634.8747034,
+  "updated_at": 1791364703.7056005
+}
