@@ -87,6 +87,34 @@ topologies:
         condition: "proof_of_execution_verified and unit_tests_passed"
         exit_action: "archive_to_done"
 
+  L4_hierarchical_tree:
+    description: "Complex multi-thread systems (e.g. Samurai frontend vs data vault vs model lines) requiring recursive tree decomposition"
+    stages:
+      - id: "macro_spec"
+        agent: "architect"
+        level: 0
+        output: ".spec/SPEC.md"
+      - id: "department_delegation"
+        agent: "department_leads"
+        level: 1
+        description: "Decompose into departmental sub-threads (frontend, data, model, ops)"
+        output: "tasks/pending/{dept_id}/"
+      - id: "line_specialist_breakdown"
+        agent: "line_specialists"
+        level: 2
+        description: "Break sub-threads into sequential pipeline DAGs"
+        output: "tasks/pending/{dept_id}/{subthread_id}/"
+      - id: "atomic_worker_execution"
+        agent: "ephemeral_subagents"
+        level: 3
+        description: "Execute leaf task cards with strict proof-of-execution"
+        claim_format: "{worker_id}-{task_id}.md"
+      - id: "cascading_verification"
+        agent: "arbiter"
+        description: "Recursive bottom-up roll-up verification: all leaves PASS -> branch PASS -> root PASS"
+        condition: "all_children_passed"
+        exit_action: "archive_to_done"
+
 state_machine:
   dirs:
     pending: "tasks/pending"
