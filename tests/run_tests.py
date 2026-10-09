@@ -13,6 +13,11 @@ from tests.test_hierarchical_tree import (
     test_hierarchical_skill_frontmatter_and_sections,
     test_hierarchical_rollup_execution_simulation,
 )
+from tests.test_engineering_architect_skill import (
+    test_engineering_architect_skill_manifest,
+    test_engineering_architect_assets_and_references,
+    test_engineering_architect_validation_runner,
+)
 
 class MultiAgentArchitectSuite(unittest.TestCase):
     def test_01_state_machine(self):
@@ -34,6 +39,11 @@ class MultiAgentArchitectSuite(unittest.TestCase):
         test_pipeline_yaml_l4_topology()
         test_hierarchical_skill_frontmatter_and_sections()
         test_hierarchical_rollup_execution_simulation()
+
+    def test_07_engineering_architect_skill(self):
+        test_engineering_architect_skill_manifest()
+        test_engineering_architect_assets_and_references()
+        test_engineering_architect_validation_runner()
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(MultiAgentArchitectSuite)

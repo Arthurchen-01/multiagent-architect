@@ -1,6 +1,6 @@
-# 🏛️ MultiAgent Architect
+# 🏛️ Engineering Architect
 
-> **Enterprise-Grade Spec-Driven Development (SDD) & Distributed Multi-Agent Orchestration Engine**  
+> **Enterprise-Grade Spec-Driven Development (SDD), Engineering Judgment & Multi-Agent Orchestration Engine**  
 > *“Spec 是源代码，代码是编译产物。从手工编码者进化为系统定义者，AI 替你打字，你替 AI 思考。”*
 
 [![CI](https://img.shields.io/badge/tests-passing-brightgreen.svg)]()
@@ -74,12 +74,21 @@
 ## 📂 仓库目录结构
 
 ```text
-multiagent-architect/
+engineering-architect/
 ├── .spec/                         # 规范中心 (SDD 核心源)
 │   ├── SPEC_SCHEMA.json           # Spec 校验 JSON Schema
-│   ├── pipeline.yaml              # L1 / L2 / L3 复杂度拓扑声明
+│   ├── pipeline.yaml              # L1 / L2 / L3 / L4 复杂度拓扑声明
 │   ├── ARCHITECTURE.md            # 架构白皮书与技术标准
 │   └── templates/                 # 标准 Spec、Task、Review 模板
+├── skills/                        # 架构师通用能力与智能体技能库
+│   ├── engineering-architect/     # [v0.1.0.0] 工程判断与路由、七步工程闭环、决策记录与汇报规范
+│   │   ├── SKILL.md               # 技能主入口（开工闸门、三条腿核实、汇报规范、交付闸门）
+│   │   ├── install.ps1            # 本机全 AI 环境一键无损分发安装脚本
+│   │   ├── assets/                # 决策记录模板、模式卡模板、工程图汇报模板、触发评测
+│   │   ├── references/            # 模式库、诊断树、项目账本、教练模式、权威来源
+│   │   └── scripts/               # 技能自检静态语法与引用校验器
+│   ├── hierarchical-tree-architect/ # [L4 树状] 树形拓扑递归任务分解与状态机级联 Roll-up
+│   └── product-gate-guard/        # [产品门禁] PRD 意图硬卡点与需求准入仲裁守卫
 ├── tasks/                         # 状态机任务卡池
 │   ├── pending/                   # 待认领原子任务 (001-*.md)
 │   ├── running/                   # 执行中任务 (workerA-001-*.md)
@@ -94,7 +103,8 @@ multiagent-architect/
 ├── cli/                           # 统一命令行入口
 │   └── main.py                    # architect status / claim / complete / arbitrate
 ├── tests/                         # 自动化测试套件
-│   └── run_tests.py               # 纯原生 unittest 执行器 (100% PASS)
+│   ├── run_tests.py               # 纯原生 unittest 执行器 (7/7 全部 PASS)
+│   └── test_engineering_architect_skill.py # 架构师核心技能完整性自动化门禁测试
 └── docs/                          # 文档与专题库
     └── fleet_architectures/       # 全项目多机队架构规约表 (涵盖 Arthurchen-01 旗下全部 25 个 GitHub 仓库)
         ├── 00_master_fleet_architecture_matrix.md

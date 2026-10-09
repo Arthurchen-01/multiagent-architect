@@ -1,0 +1,76 @@
+{
+  "_note": "触发评测集。用途：验证这个 skill 的 description 是否在「该触发」时触发、在「不该触发」时闭嘴。用法见 v0.1.0.0/README.md §触发测试。每轮至少跑 3 次算触发率（>0.5 视为触发）。",
+  "_split": "前 8 条为训练集（用来改 description），后 6 条为验证集（只用来检查是否过拟合，不许拿它指导修改）。",
+  "queries": [
+    {
+      "query": "我有个想法，想做个本地工具自动整理我下载的一堆文件，你觉得该怎么搞？",
+      "should_trigger": true,
+      "why": "新需求、没有技术方案、要判断规模与路线"
+    },
+    {
+      "query": "这个功能要不要重构成微服务？现在单体越来越难改了",
+      "should_trigger": true,
+      "why": "方案取舍 + 明确问「要不要」"
+    },
+    {
+      "query": "网站又崩了，昨天还好好的，今天一打开就是白的",
+      "should_trigger": true,
+      "why": "只描述现象、没点名技术方案"
+    },
+    {
+      "query": "帮我把这次的活验收一下，看看能不能交付",
+      "should_trigger": true,
+      "why": "验收 / 交付闸门"
+    },
+    {
+      "query": "接手了同事的一个仓库，完全不知道从哪看起",
+      "should_trigger": true,
+      "why": "接手不熟的仓库 → 项目记忆"
+    },
+    {
+      "query": "你上次说那个方案我不太服，你能说说为什么吗",
+      "should_trigger": true,
+      "why": "要理由与依据 → 三条腿 + 出处"
+    },
+    {
+      "query": "我想练一下自己判断问题的能力，你给我出个题",
+      "should_trigger": true,
+      "why": "刻意练习 → Coach 模式"
+    },
+    {
+      "query": "感觉最近这套东西老出问题，说不清哪不对",
+      "should_trigger": true,
+      "why": "模糊现象、反复出问题"
+    },
+    {
+      "query": "帮我查一下 Next.js 15 的 app router 怎么配 middleware",
+      "should_trigger": false,
+      "why": "近邻：查资料，走 research，不是判断与路由"
+    },
+    {
+      "query": "这段代码帮我看看有没有 SQL 注入",
+      "should_trigger": false,
+      "why": "近邻：具体代码审查，走 code-review"
+    },
+    {
+      "query": "把这份 md 转成 word，排版弄好看点",
+      "should_trigger": false,
+      "why": "近邻：纯格式转换，不涉及工程判断"
+    },
+    {
+      "query": "今天天气怎么样",
+      "should_trigger": false,
+      "why": "明显无关（基础负例，测不触发底线）"
+    },
+    {
+      "query": "把这个函数改成 async 的",
+      "should_trigger": false,
+      "why": "近邻：明确的单步实现指令，走 implement"
+    },
+    {
+      "query": "给我讲讲 TCP 三次握手",
+      "should_trigger": false,
+      "why": "近邻：纯知识问答"
+    }
+  ]
+}
